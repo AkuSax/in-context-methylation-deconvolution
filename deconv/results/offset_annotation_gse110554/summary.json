@@ -1,0 +1,20 @@
+{
+ "absM_visible": {
+  "r2": 0.3449,
+  "auroc_top5": 0.8899
+ },
+ "absM_ann": {
+  "r2": 0.3523,
+  "auroc_top5": 0.8926
+ },
+ "offM_visible": {
+  "r2": 0.1598,
+  "auroc_top5": 0.7423
+ },
+ "offM_ann": {
+  "r2": 0.1661,
+  "auroc_top5": 0.7567
+ },
+ "split_half_spearman_abs": 0.318,
+ "split_half_pearson_signed": 0.6445
+}
