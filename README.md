@@ -85,3 +85,5 @@ python run_baselines.py --preproc noob --no-epidish --no-paper
 
 - [EpiDISH](https://bioconductor.org/packages/EpiDISH/) and the [methylation deconvolution benchmark](https://doi.org/10.1038/s41467-024-48466-z).
 - BLEND-M is vendored under `deconv/vendor/BLENDM/` with its original licence.
+
+This project is released under the MIT licence; the vendored BLEND-M code keeps its own licence (`deconv/vendor/BLENDM/LICENSE.md`).
