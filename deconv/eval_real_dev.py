@@ -27,6 +27,7 @@ import solvers
 from model import Deconvolver
 from rpc_torch import rpc_fit
 
+COHORT_MODE = "all"  # v6 cohort model only: "all" = one call is one cohort, "single" = every sample alone
 PRIOR_OTHER = 0.0909  # fallback: training-prior mean of `other` for gpu_v2_seed0 (set from the checkpoint in main)
 
 
@@ -55,7 +56,9 @@ def run_methods(model, mean, sd, bulk):
     with torch.inference_mode():
         torch.manual_seed(0)
         # A v6 model treats the samples passed in one call as one cohort.
-        cohort = torch.zeros(n, dtype=torch.long) if getattr(model, "cohort", False) else None
+        cohort = None
+        if getattr(model, "cohort", False):
+            cohort = torch.zeros(n, dtype=torch.long) if COHORT_MODE == "all" else torch.arange(n)
         p = model(as_t(R), as_t(S), as_t(B), fit, cohort)
         est = p.mean.numpy().astype(float)
         q = p.sample(400).quantile(torch.tensor([0.05, 0.95]), dim=0).numpy().astype(float)
@@ -78,8 +81,10 @@ def main():
     ap.add_argument("--out", type=Path, default=Path("results/dev_gse110554_gpu_v2"))
     ap.add_argument("--per-side", type=int, nargs="+", default=[25, 12, 50])
     ap.add_argument("--boot", type=int, default=10000)
+    ap.add_argument("--cohort-mode", choices=["all", "single"], default="all")
     args = ap.parse_args()
-    global PRIOR_OTHER
+    global PRIOR_OTHER, COHORT_MODE
+    COHORT_MODE = args.cohort_mode
     ckpt = json.loads((args.checkpoint / "summary.json").read_text())
     settings = ckpt["settings"]
     PRIOR_OTHER = float(ckpt.get("best", {}).get("prior_mean_other", PRIOR_OTHER))

@@ -6,7 +6,7 @@ labels, and no protocol was frozen first. No model or simulator was changed. Scr
 `panel_markers.csv`.
 
 Question: the v5 clean penalty is false `other` driven by a per-CpG offset between sorted
-arrays and mixture arrays (HANDOFF step 5). If the offset could be predicted from fixed probe
+arrays and mixture arrays. If the offset could be predicted from fixed probe
 properties (design type, colour channel, CpG-island context, SNP and Zhou masks), those
 properties could become CpG features for the model and could shape the simulator's offsets.
 These are option 1 of the external-data review.
@@ -58,13 +58,13 @@ These are option 1 of the external-data review.
 ## What this means for the model
 
 - Don't add annotation-derived CpG features or a per-probe reliability table. The one
-  possible exception is a type I/II flag, which BACKGROUND.md §5 already lists as a token
+  possible exception is a type I/II flag, which is a plausible token
   feature and which costs nothing.
 - The per-CpG offset is batch-specific. A model therefore can't tell it apart from a missing
   type using fixed per-CpG knowledge. It needs evidence from the batch itself. One kind is
   cohort-level input: a batch offset repeats in every sample of a batch, while a missing type
-  scales with its fraction. The other is real cross-study pairs in the simulator (HANDOFF
-  proposed steps 3 and 4). This result pushes priority toward those.
+  scales with its fraction. The other is real cross-study pairs in the simulator.
+  This result pushes priority toward those.
 - The simulator can tie offset size and sign to beta level, as observed here (larger at
   mid-beta, negative below 0.1). Whether v5's M-value warp already covers this was not
   checked.
