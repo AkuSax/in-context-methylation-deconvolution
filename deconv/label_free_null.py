@@ -22,7 +22,6 @@ from __future__ import annotations
 
 import gzip
 import json
-import os
 import sys
 import traceback
 from pathlib import Path
@@ -40,7 +39,7 @@ from rpc_torch import rpc_fit
 
 CKPT = Path("results/gpu_v5_seed0")
 OUT = Path("results/null_whole_blood_gpu_v5")
-DATA = Path(os.environ.get("COMPGEN_DATA", str(Path.home() / "data" / "comp-genomics")))
+DATA = Path(r"C:\Users\Saxen\data\comp-genomics")
 PER_SIDE = 25
 THRESH = 0.05  # 5 points
 
