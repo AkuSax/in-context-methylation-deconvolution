@@ -41,7 +41,7 @@ import reference
 import simulator
 
 OUT = Path(__file__).resolve().parent / "results" / "offset_annotation_gse110554"
-R3 = Path(os.environ.get("DECONV_DATA", str(Path.home() / "data" / "comp-genomics"))) / "discovery" / "r3" / "raw"
+R3 = Path(os.environ.get("DECONV_DATA", r"C:\Users\Saxen\data\comp-genomics")) / "discovery" / "r3" / "raw"
 MANIFEST = R3 / "gpl21145_epicv1_manifest" / "GPL21145_MethylationEPIC_15073387_v-1-0.csv.gz"
 ZHOU = R3 / "zhou_epic_masks" / "EPIC.hg38.mask.tsv.gz"
 EPS = 1e-3

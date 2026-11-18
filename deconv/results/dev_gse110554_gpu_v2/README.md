@@ -49,6 +49,6 @@ most about 0.02 SD) and its lack of any reference-to-bulk offset are too clean.
 
 The v3 simulator needs reference-to-bulk technical shift: noise up to the real scale or
 beyond, a global offset, and per-CpG batch offsets or warps (the platform-shift prior in
-BACKGROUND.md §5). Then large residuals alone stop meaning a missing type. GSE110554 has now
+the preprocessing discussion). Then large residuals alone stop meaning a missing type. GSE110554 has now
 been looked at once for this model family; a v3 recheck here is a second development look
 and must be labelled so.

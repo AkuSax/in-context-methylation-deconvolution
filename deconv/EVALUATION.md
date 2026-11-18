@@ -1,8 +1,8 @@
 # Evaluation protocol
 
-Status: the user approved the three primary accuracy targets on 2026-11-11
+Status: the three primary accuracy targets were fixed on 2026-11-11
 before model training. The secondary targets remain exploratory.
-The existing baseline numbers in `HANDOFF.md` are exploratory. They do not make
+The existing baseline numbers in the project notes are exploratory. They do not make
 the final set unseen by the project. Do not tune the model to those numbers.
 
 ## Data roles and provenance
@@ -10,7 +10,12 @@ the final set unseen by the project. Do not tune the model to those numbers.
 | Data | Fixed role | Independence and limits |
 |---|---|---|
 | GSE35069 and synthetic types | Simulator training and development | GSE35069 has six donors with seven non-overlapping sorted types. The simulator keeps three donors in each partition. It uses the deposited betas and labels artificial types. |
-| GSE103541 | Simulator training and development (added 2026-11-11, approved by the user as a training source) | 27 usable donors with five sorted types each, EPIC, Noob. It has no fraction truth. Never use it as a test set. 141 of its arrays are also in GSE166844, so treat GSE166844 as the same source. |
+| GSE103541 | Simulator training and development (added 2026-11-11) | 27 usable donors with five sorted types each, EPIC, Noob. It has no fraction truth. Never use it as a test set. 141 of its arrays are also in GSE166844, so treat GSE166844 as the same source. |
+| GSE224807 | Simulator training and development (added 2026-11-12) | Non-smoker (`smoking_status: NS`) arrays only: 415 of 789 on 450K and 51 of 87 on EPIC + custom content (read as standard EPIC). Arrays with more than 5% detection-p failures are excluded: GSM7032671, GSM7033156 and GSM7032674 (non-smokers) and GSM7032648 (smoker). Smoker arrays are kept out of training and reserved for a secondary smoking-shift check. Its whole blood has no fraction truth. Never use it as a test set. |
+| GSE184269 | Simulator training and development (added 2026-11-12) | 24 healthy donors, EPIC: whole blood, PBMC, monocytes, naive CD4, CD8 and B, NK, granulocytes. No fraction truth. Never use it as a test set. |
+| GSE88824 | Simulator training and development (added 2026-11-12) | 450K. Use the eight control donors' sorted arrays (neutrophils, CD4 T, CD8 T, NK, B, monocytes) and their WBC arrays. Exclude the 13 MS-case whole-blood arrays. No fraction truth. Never use it as a test set. |
+| GSE118144 | Real reference-compatibility development (added 2026-11-12) | Exclude its entire series from simulator and model training. 29 donors (13 controls, 16 paediatric SLE), EPIC, each with whole blood and sorted CD4 T, CD8 T, B and CD16 neutrophils. Same-donor whole blood supports matched-reference estimates only, not measured fractions. Report controls and SLE separately. B cells are labelled `purified B cells` for SLE and `purified CD19+ B cells` for controls; map both to B and record it. |
+| GSE68456 | Matched cord-blood reference at inference only (decided 2026-11-12) | Use it only as the cord reference for the GSE127824 stress test. Keep it out of simulator training, validation and tuning so nRBC stays unseen in training. For the same reason exclude the three GSE186458 `Bone_marrow-Erythrocyte_progenitors` WGBS samples from training. |
 | GSE131989 | Candidate simulator source | Donor identity across sorted types needs verification. The proposed title-based join gives conflicting ages for matched samples. |
 | GSE110554 | Real calibration development; six-type secondary descriptive test only before calibration use | Exclude its entire series from simulator and model training. Its 37 sorted arrays include one technical replicate. It has 12 mixtures. The same study supplies reference and mixtures, and does not establish independent donors or DNA for this use. Do not call its calibration an independent final test. |
 | GSE167998 sorted samples + GSE182379 mixtures | Primary final test, 12 types | Exclude both entire series from simulator training, validation, marker tuning, model choice and calibration. GSE167998 supplies the reference at inference only. GSE182379 supplies all 12 final mixtures. |
@@ -18,6 +23,14 @@ the final set unseen by the project. Do not tune the model to those numbers.
 | GSE112618 and GSE77797 whole blood | Paired adult platform stress test | Six matched flow records, each within 0.005 percentage points across series. Treat each match as one paired unit. Flow agreement alone does not prove same donor or same DNA. Verify sample links before calling these same-donor or same-DNA assays. |
 | GSE77797 constructed mixtures | Secondary 450K test | Keep its 12 mixtures separate from its six whole-blood records. Audit source DNA and donor overlap before an independence claim. |
 | GSE127824 | Secondary cord-blood stress test | Keep all 24 samples and labels out of training and calibration. Adult reference mismatch and missing nRBC occur together. This is not an isolated test of either effect. |
+
+Amendment of 2026-11-12, made before any model used these series. The five rows above dated
+2026-11-12 were added. Reasons: smoking and SLE change methylation within cell types, so
+neither is used as a training reference. The 5% detection-failure cutoff is a fixed QC rule
+set from array QC alone. Training sources may be held out from one another for
+leave-one-study-out simulator validation. That is internal validation, not a test claim.
+The other series downloaded on 2026-11-12 (GSE87640, GSE59250, GSE56046/GSE56581,
+GSE180683, deconvMe, GSE186458) still have no approved role. Their provenance is recorded in `data_manifest.json`.
 
 The [2022 source study](https://www.nature.com/articles/s41467-021-27864-7)
 names GSE182379 as its independent validation series. It states that its 12
@@ -172,6 +185,38 @@ not evidence of calibrated population coverage. If a bootstrap method is not
 available, mark the width comparison unavailable.
 
 ## Decision and reporting
+
+### v6 reporting addendum (2026-11-12; no changes to approved targets or data roles)
+
+The current cohort model uses other samples' methylation profiles when predicting a
+sample. Freeze and report the rule for forming inference cohorts from assay provenance,
+without using outcomes or fraction truth. Report singleton inference and sensitivity to
+cohort size, composition and batch mixing as secondary analyses. A cohort/no-cohort
+ablation must share the training prior and evaluation cases. Historical v5/v6 synthetic
+scorecards use different priors and are not that ablation.
+
+The existing row bootstrap can describe a comparison conditional on a fixed observed
+cohort and its predictions. Shared cohort features induce dependence beyond reused DNA;
+that bootstrap does not establish performance on new independent cohorts. For a claim
+about an inference procedure applied to resampled contexts, recompute context features
+and predictions under the declared resampling scheme. For study-level generalization,
+independent studies/cohorts are the replication units; twelve mixtures in one context
+do not provide twelve independent cohorts. Keep these added limits with the original
+bootstrap caveats.
+
+Separately report retained-type conditional proportions, full-mixture fractions and
+missing mass. Do not replace the approved full-mixture endpoints with a rescaled success.
+Unlabelled whole-blood studies are reference-compatibility stress tests, not verified
+zero-other controls; they cannot establish specificity or missing-mass calibration.
+If a reliability rule is evaluated, freeze its threshold on development data and assess
+both complete-but-shifted and incomplete cases. Synthetic missing-case frequency does
+not calibrate the real-world probability that a reference is incomplete.
+
+Record indirect real-label use in simulator design as well as direct supervised fitting.
+New baseline or reference-panel variants are secondary unless
+an explicit, dated protocol amendment is made before inspecting their final outcomes.
+
+### Original decision rules
 
 Use the three approved accuracy targets for the first real-data test. Record
 any change with its date and reason. Report all results

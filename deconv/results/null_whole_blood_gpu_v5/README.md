@@ -1,5 +1,12 @@
 # Label-free whole-blood null check, v5 checkpoint
 
+**Interpretation correction, 2026-11-12:** these cohorts have no fraction truth and the
+six-type reference is not known to be complete. The outputs below are unchanged, but
+"null" and "false other" in the historical interpretation are not verified labels.
+Treat this as an unlabelled reference-compatibility stress test. Processing mismatch,
+omitted blood populations and biological variation remain confounded; the fraction above
+5 points is not a measured false-positive rate.
+
 Script: `deconv/label_free_null.py` (run from `deconv/` with `py -3.11 -B label_free_null.py`).
 Outputs: `estimates.csv` (one row per sample) and `summary.csv` (one row per cohort).
 

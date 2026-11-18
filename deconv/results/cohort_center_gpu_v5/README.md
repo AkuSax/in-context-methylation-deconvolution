@@ -1,5 +1,12 @@
 # Cohort-offset centering test, v5 checkpoint (2026-11-12)
 
+**Interpretation correction, 2026-11-12:** clean constructed GSE110554 mixtures have an
+omission target of zero; the four unlabelled whole-blood cohorts do not have known `other`
+truth. Their reported values cannot be classified as true or false missing mass from
+these data alone. A shared residual is compatible with both technical and biological
+effects, so centering does not identify their cause. Values below are preserved as the
+historical analysis.
+
 Script: `deconv/cohort_center.py` (run from `deconv/` with `py -3.11 -B cohort_center.py`; about
 75 min on this machine, `--dev-only` about 4 min). Files: `dev_summary.csv`, `dev_long.csv`,
 `null_summary.csv`, `null_estimates.csv`, `run.log`.
