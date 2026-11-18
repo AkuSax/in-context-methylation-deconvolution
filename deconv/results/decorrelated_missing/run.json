@@ -1,0 +1,30 @@
+{
+  "seeds": 5,
+  "per_side": 25,
+  "n_mix": 60,
+  "alpha": 20.0,
+  "u_max": 0.3,
+  "noise": 0.01,
+  "base": {
+    "Gran": 0.62,
+    "CD4T": 0.15,
+    "CD8T": 0.08,
+    "B": 0.06,
+    "Mono": 0.09
+  },
+  "mixture_donors": [
+    "GSE103541:Patient10",
+    "GSE103541:Patient16",
+    "GSE103541:Patient20",
+    "GSE103541:Patient22",
+    "GSE103541:Patient27",
+    "GSE103541:Patient28",
+    "GSE103541:Patient9"
+  ],
+  "n_within_ref_donors": 20,
+  "checkpoint": "results\\gpu_v6_nocohort_seed0",
+  "n_cpgs": 429494,
+  "mae_oracle_constant": 0.075,
+  "mae_prior_constant": 0.08677304118569423,
+  "prior_mean_other": 0.0905466838376412
+}

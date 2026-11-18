@@ -1,0 +1,767 @@
+[
+  {
+    "series": "GSE180683",
+    "file": "GSE180683_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180683/suppl/GSE180683_RAW.tar",
+    "bytes": 1293680640,
+    "sha256": "ced19f4e952fb9ca677c4b4d5aa1537c8e0a6d24215e1d6c92228a633168f63a",
+    "md5": "730c04fadfc29b2fdf73b8b1d2d4869e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE180683",
+    "file": "GSE180683_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180683/matrix/GSE180683_series_matrix.txt.gz",
+    "bytes": 7314,
+    "sha256": "a1de353a646d07e837fb0ff27100c93a845412f28ecf90cf232b9214cb6f9343",
+    "md5": "521c5ac7a31632f673fec8b813bc1609",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "GSE186458_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE186nnn/GSE186458/matrix/GSE186458_series_matrix.txt.gz",
+    "bytes": 28806,
+    "sha256": "7318b8a5f18b00eb6dced0a02ae5c3628a60aa27f16c128f595c2be297148e56",
+    "md5": "6b2983eebcfa375e2761ec5aaec4c01f",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652274_Bone_marrow-Erythrocyte_progenitors-Z000000RF.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652274/suppl/GSM5652274_Bone_marrow-Erythrocyte_progenitors-Z000000RF.beta",
+    "bytes": 56434896,
+    "sha256": "79d776c8866246146d9b25643e13c7c764b01b85c43ddedc8cb213aec62918cc",
+    "md5": "461eafb7e59188295bb444ebaa7d08a5",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652275_Bone_marrow-Erythrocyte_progenitors-Z000000RH.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652275/suppl/GSM5652275_Bone_marrow-Erythrocyte_progenitors-Z000000RH.beta",
+    "bytes": 56434896,
+    "sha256": "1681f8c78cae670419ac08a8a98621784e4c7846413a7cefe459f3dfb468f70a",
+    "md5": "5fa54bbd55c838bea8204c48cb55994c",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652276_Bone_marrow-Erythrocyte_progenitors-Z000000RK.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652276/suppl/GSM5652276_Bone_marrow-Erythrocyte_progenitors-Z000000RK.beta",
+    "bytes": 56434896,
+    "sha256": "6d98221052d8b51399a7acc3aa071e7d224ca2dd0445d63984e38c1f2fbc1ffd",
+    "md5": "952ed5504755ba5418b0219b1c86879d",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652277_Blood-T-CD3-Z000000TV.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652277/suppl/GSM5652277_Blood-T-CD3-Z000000TV.beta",
+    "bytes": 56434896,
+    "sha256": "a341c2e02a7ad3094efc5a9efce342fc65443b15d4f6706cd84d186f09729bad",
+    "md5": "73d61608a0ed8d78503986bf9bc256a2",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652278_Blood-T-CD3-Z000000UP.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652278/suppl/GSM5652278_Blood-T-CD3-Z000000UP.beta",
+    "bytes": 56434896,
+    "sha256": "d17d4cb999a0d96bd4cc345bc8a62ad3a6a5e81747b44cb40ad7cc8e7bb7c62c",
+    "md5": "643d944c0def512f49d4df5182c44884",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652279_Blood-T-CD4-Z000000TT.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652279/suppl/GSM5652279_Blood-T-CD4-Z000000TT.beta",
+    "bytes": 56434896,
+    "sha256": "7b73923e0f9b93cc7f575165613eeb610e8b79cd1df9d370d6a10534311ccbfe",
+    "md5": "f5f19173bd85830a76aa0770cb274b73",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652280_Blood-T-CD4-Z000000U7.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652280/suppl/GSM5652280_Blood-T-CD4-Z000000U7.beta",
+    "bytes": 56434896,
+    "sha256": "3d757fd7d3d3e48dd8c49eca04b86a28591007841e3fcfe6e441143d64eed13b",
+    "md5": "abeeaebaadd10f0e8bc9e60cbbb98a17",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652281_Blood-T-CD4-Z000000UM.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652281/suppl/GSM5652281_Blood-T-CD4-Z000000UM.beta",
+    "bytes": 56434896,
+    "sha256": "ddc699f95944a02e4c2c67c31a552a195af9e9ae12c6e3306e0b290e3ebd81c6",
+    "md5": "18fc3a2a4fb0c7f3852121b3eff6ebed",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652282_Blood-T-CD8-Z000000TR.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652282/suppl/GSM5652282_Blood-T-CD8-Z000000TR.beta",
+    "bytes": 56434896,
+    "sha256": "48e2fe71331adf3535b74a17a575fce33e86fc31bbbc78a5be003614e2e4a020",
+    "md5": "b8881288126693cce652ca60bc49c199",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652283_Blood-T-CD8-Z000000U5.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652283/suppl/GSM5652283_Blood-T-CD8-Z000000U5.beta",
+    "bytes": 56434896,
+    "sha256": "9e046323c0b7378efd1edd02a284af2b817dc1d6ca10d17d30be8c70aedf214d",
+    "md5": "bdfd80ad36bd2898b82bb81b18fe8a21",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652284_Blood-T-CD8-Z000000UK.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652284/suppl/GSM5652284_Blood-T-CD8-Z000000UK.beta",
+    "bytes": 56434896,
+    "sha256": "6d6c2aca30366af0f033e535a9bac15359585104edc238bb66189c921678d228",
+    "md5": "0c0f143b0dbdf3f11e21822ed9b6cc9c",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652285_Blood-T-CenMem-CD4-Z00000417.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652285/suppl/GSM5652285_Blood-T-CenMem-CD4-Z00000417.beta",
+    "bytes": 56434896,
+    "sha256": "826074feed73d8b51804f15382cd5479992313fb2cd85447cc7592f175f64485",
+    "md5": "d918a0c0bdc0f3439531f80e97d2123f",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652286_Blood-T-CenMem-CD4-Z0000041D.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652286/suppl/GSM5652286_Blood-T-CenMem-CD4-Z0000041D.beta",
+    "bytes": 56434896,
+    "sha256": "04e95c8a20b5b527e4d5759fe7c4554dd51009227c90ee5c870d7cf0d64eb8c9",
+    "md5": "9db5b0da639e2d619521d2d133434f97",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652287_Blood-T-CenMem-CD4-Z0000041N.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652287/suppl/GSM5652287_Blood-T-CenMem-CD4-Z0000041N.beta",
+    "bytes": 56434896,
+    "sha256": "e01ba03c7b87ba1620d4176561078781de6536df8f6f8719aecc4f9bcced960d",
+    "md5": "7f89da0395a937a782ac40437f4bcbe4",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652288_Blood-T-Eff-CD8-Z00000419.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652288/suppl/GSM5652288_Blood-T-Eff-CD8-Z00000419.beta",
+    "bytes": 56434896,
+    "sha256": "ea56f5ab9cc562ac1a8b6aab36642936bdd836c2c7fbddbc68221afa6848d11e",
+    "md5": "6e2a79449bc75160ce4c396fad4bc7ac",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652289_Blood-T-Eff-CD8-Z0000041F.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652289/suppl/GSM5652289_Blood-T-Eff-CD8-Z0000041F.beta",
+    "bytes": 56434896,
+    "sha256": "c3a4443d48298c66cc8e13fc07ada24d3a9a708003017925ec847dc10523f618",
+    "md5": "5fa5ebd3e87d419520b9534d2da1f0ff",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652290_Blood-T-Eff-CD8-Z0000041Q.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652290/suppl/GSM5652290_Blood-T-Eff-CD8-Z0000041Q.beta",
+    "bytes": 56434896,
+    "sha256": "15adc86bdb387159a728b08859b2ac95a0405b097d3ebad1e76d2748425c97f7",
+    "md5": "491d49cbc3926c03e53fc94b5bcd965b",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652291_Blood-T-EffMem-CD4-Z00000416.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652291/suppl/GSM5652291_Blood-T-EffMem-CD4-Z00000416.beta",
+    "bytes": 56434896,
+    "sha256": "c0738de5040bf2301cf8e6761c6886ba1e59ebf9e09c36a9fd4c8c95eace36a3",
+    "md5": "ab6165d587f149e76bb89cc8c22b9f8d",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652292_Blood-T-EffMem-CD4-Z0000041C.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652292/suppl/GSM5652292_Blood-T-EffMem-CD4-Z0000041C.beta",
+    "bytes": 56434896,
+    "sha256": "fb924d88b740bc9184459bd8451aa04701dcbf197eab525e357997b05accb28f",
+    "md5": "ec1eb5d0db39873a92caaafd792f6fc3",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652293_Blood-T-EffMem-CD4-Z0000041M.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652293/suppl/GSM5652293_Blood-T-EffMem-CD4-Z0000041M.beta",
+    "bytes": 56434896,
+    "sha256": "0726f311b5c101384e58240eb65010956c968655c36f52a1d66632801eb6cf9e",
+    "md5": "82564b29b3b29149c9d5e52afba1b2a8",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652294_Blood-T-EffMem-CD8-Z0000041A.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652294/suppl/GSM5652294_Blood-T-EffMem-CD8-Z0000041A.beta",
+    "bytes": 56434896,
+    "sha256": "4aa7e7bae8ddf97d0b2e60df4605e4a4904273ebde7374dc9caa6b7561664fbb",
+    "md5": "27c87be1b0f928d2832ebdc7a1904d6f",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652295_Blood-T-EffMem-CD8-Z0000041G.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652295/suppl/GSM5652295_Blood-T-EffMem-CD8-Z0000041G.beta",
+    "bytes": 56434896,
+    "sha256": "95903fc0b242b0d859a9a701d8aba7ff5962be7f9584f8661306e96cfd55c748",
+    "md5": "066064f469e3ea48a52c86bc74121fb7",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652296_Blood-T-Naive-CD4-Z0000041E.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652296/suppl/GSM5652296_Blood-T-Naive-CD4-Z0000041E.beta",
+    "bytes": 56434896,
+    "sha256": "1a94ba969fd00805038a5ccf81f6739a27a146ea8d9dc59da6a98cda14e53ca9",
+    "md5": "b8dad32863a7c664692db21857f83b40",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652297_Blood-T-Naive-CD8-Z0000041B.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652297/suppl/GSM5652297_Blood-T-Naive-CD8-Z0000041B.beta",
+    "bytes": 56434896,
+    "sha256": "09579b154fef52c41675ff9ac4da83a6b6acf91478bac5401e7265296a0b1e14",
+    "md5": "4be25cbb6e3311614ead4fa064074681",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652298_Blood-T-Naive-CD8-Z0000041H.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652298/suppl/GSM5652298_Blood-T-Naive-CD8-Z0000041H.beta",
+    "bytes": 56434896,
+    "sha256": "6eca34f9da23af3b1bd20650b8ddbeb2e9752b835788cdd02160746101215a07",
+    "md5": "53fda9e1736959229ce80b929bf7946d",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652299_Blood-NK-Z000000TM.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652299/suppl/GSM5652299_Blood-NK-Z000000TM.beta",
+    "bytes": 56434896,
+    "sha256": "2b14dce5313c7bc7f783be7ef3a287150daec233ff17a84d5619f974c9b0e176",
+    "md5": "44c9d07be89d11e1e1005133aca8ed62",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652300_Blood-NK-Z000000U1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652300/suppl/GSM5652300_Blood-NK-Z000000U1.beta",
+    "bytes": 56434896,
+    "sha256": "4709b394f04efd4d56b3dc6a1d88a459a521065343d4d7b5f028598be5e0c32a",
+    "md5": "48175c937e381c1a4c383950221f2957",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652301_Blood-NK-Z000000UF.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652301/suppl/GSM5652301_Blood-NK-Z000000UF.beta",
+    "bytes": 56434896,
+    "sha256": "17899b4941f6372c52f3463b06e464e03e700d76f5e36eb194d65ab3ec967daa",
+    "md5": "a14d08fb636eabb9ef304199a4178b81",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652302_Blood-Monocytes-Z000000TP.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652302/suppl/GSM5652302_Blood-Monocytes-Z000000TP.beta",
+    "bytes": 56434896,
+    "sha256": "30ece781a3888be62f569c3f0f93884288735f265100713aa3a19bd151982256",
+    "md5": "9e37f93923f7ed186e31e1d3d04c640d",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652303_Blood-Monocytes-Z000000U3.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652303/suppl/GSM5652303_Blood-Monocytes-Z000000U3.beta",
+    "bytes": 56434896,
+    "sha256": "ae64fd0ce55afb179a6823ad02037c82d07370104d5d61d7608e545b1b725363",
+    "md5": "3f27309508dce285ab18c36d70f72049",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652304_Blood-Monocytes-Z000000UH.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652304/suppl/GSM5652304_Blood-Monocytes-Z000000UH.beta",
+    "bytes": 56434896,
+    "sha256": "74264a95ac882e0d7ecc69bc13f4eb7f80025e656bd62ce24a62cbef3ad7025b",
+    "md5": "c50393978c02b9788ee3f3d2060ff844",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652313_Blood-Granulocytes-Z000000TZ.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652313/suppl/GSM5652313_Blood-Granulocytes-Z000000TZ.beta",
+    "bytes": 56434896,
+    "sha256": "17c0d79db689d5b2d4e6437c09290ac83c03d4bb557d7dd87cddd8cee27e0f6d",
+    "md5": "fc8edd7bc479b3b68753aca7676a7607",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652314_Blood-Granulocytes-Z000000UD.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652314/suppl/GSM5652314_Blood-Granulocytes-Z000000UD.beta",
+    "bytes": 56434896,
+    "sha256": "195f272983f0fbfcffcbf2d153964864af54d4a458b354f188fed1f4bce24d80",
+    "md5": "c5d2f6230e66a45c8afe5d5d65b84b6e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652315_Blood-Granulocytes-Z000000UT.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652315/suppl/GSM5652315_Blood-Granulocytes-Z000000UT.beta",
+    "bytes": 56434896,
+    "sha256": "2fc40743657087419ba883011c3fad9fad4ff64f45d28cc8b0b1c8c40ebfabbc",
+    "md5": "e00dc64ae540597a4aa40eff73860169",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652316_Blood-B-Z000000TX.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652316/suppl/GSM5652316_Blood-B-Z000000TX.beta",
+    "bytes": 56434896,
+    "sha256": "31cb892f6221f218fdde5fe8f10f2e67c5ef2bc2718613987db37a22d0752f8e",
+    "md5": "1aacbf1df195d59080d440957ed313be",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652317_Blood-B-Z000000UB.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652317/suppl/GSM5652317_Blood-B-Z000000UB.beta",
+    "bytes": 56434896,
+    "sha256": "8907a788e02b0579d81069da304d964e455a15fa7e0f7c60228bc67a1ee6c8fc",
+    "md5": "c3bc8e39915502aa72e09d72ac9812a0",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652318_Blood-B-Z000000UR.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652318/suppl/GSM5652318_Blood-B-Z000000UR.beta",
+    "bytes": 56434896,
+    "sha256": "b353d7435cee660f48133a8851f9bdcf83347bbbfae863da8f95c3fbc51fd2d8",
+    "md5": "b7575a5a02d42f66a7398305677cbea5",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652319_Blood-B-Mem-Z0000041J.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652319/suppl/GSM5652319_Blood-B-Mem-Z0000041J.beta",
+    "bytes": 56434896,
+    "sha256": "d810b79fa72f78ce8881faa8ba1f1703e668c8f295a70331a40eb4068a934d1e",
+    "md5": "d5d414e7a322dcb8b0b9b4c03a505aaf",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM5652320_Blood-B-Mem-Z0000041K.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5652nnn/GSM5652320/suppl/GSM5652320_Blood-B-Mem-Z0000041K.beta",
+    "bytes": 56434896,
+    "sha256": "eab8254ae55e73fbe61efa553f64e6a6867d4fe6b262c50180cdad2900c4c281",
+    "md5": "fd10c5cb9e503f70a26865628f0b0b58",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810026_CNVS-NORM-110000263-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810026/suppl/GSM6810026_CNVS-NORM-110000263-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "8f0d4f20c89b1effb3e8b072fd97dfec0a9d04b6196d225e1e6a5b1487a78d0f",
+    "md5": "c7708290ea54fb88bd986ea9ef14c52a",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810027_CNVS-NORM-110000264-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810027/suppl/GSM6810027_CNVS-NORM-110000264-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "4dc6c6f5c1a6965d78ac4ba4d81213d655a6dba9c3818fa1c0b386fe01695ebe",
+    "md5": "dbc80ab245f1224f2ec325ed758be4d4",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810028_CNVS-NORM-110027051-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810028/suppl/GSM6810028_CNVS-NORM-110027051-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "fb02f280299aceec8361904414c3b4b9f4730aece2292f6b606ec7cd1f949ca9",
+    "md5": "f2add2428754ac79676327a035debf97",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810029_CNVS-NORM-110027054-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810029/suppl/GSM6810029_CNVS-NORM-110027054-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "94dfb630325a4146522209eeb2c9162972d203339bd25d29a174a74b19fecaf3",
+    "md5": "4cc2dd1b27f66ee080da381ec77f3465",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810030_CNVS-NORM-110029639-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810030/suppl/GSM6810030_CNVS-NORM-110029639-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "a0da987efb71e6f92329d9e76753b08e93b5a1339ffb7b81971d2f5e592e97d5",
+    "md5": "17d2078ccd7f8839e17c9d9ad3353b2b",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810031_CNVS-NORM-110029979-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810031/suppl/GSM6810031_CNVS-NORM-110029979-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "0a795d04bc4141f58ff3759da9b43fff874250034bb5d132df1d54c91b831f4c",
+    "md5": "a360aa568905b483b572df3c60946aa1",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810032_CNVS-NORM-110032739-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810032/suppl/GSM6810032_CNVS-NORM-110032739-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "f6e054be483e09fa9cac0a2565b1dbe647a13ffdec0ae2489155728f7a1020e5",
+    "md5": "e616314a3e6a57ad33709d948018a14e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810033_CNVS-NORM-110032789-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810033/suppl/GSM6810033_CNVS-NORM-110032789-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "035be6924cb7e2ceeb91793afffb07a825a73f1a089a1b14d613ac4e2a7114e9",
+    "md5": "ac921e06db7c2a98ea615da3062fd888",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810034_CNVS-NORM-110033253-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810034/suppl/GSM6810034_CNVS-NORM-110033253-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "33f4286453011a63c3e18f6c9b5a527c1296ab373bff9bab87d689fccc2e7838",
+    "md5": "72d655e8671038d8a0bc2f9cbefa9fc5",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810035_CNVS-NORM-110033397-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810035/suppl/GSM6810035_CNVS-NORM-110033397-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "6594d2eb938017324e46c6d627acb58c70fd03e729a6d87eb96104f97d2dd6d5",
+    "md5": "8c8f65eb410e956a44321b9b62911c5d",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810036_CNVS-NORM-110033577-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810036/suppl/GSM6810036_CNVS-NORM-110033577-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "4d2f365ac04657f31e34200bdddc0c64892f247ad5c1a8d08df4173edd5bf8db",
+    "md5": "6a0e2a91e85506b776a661c5defafe6e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810037_CNVS-NORM-110033633-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810037/suppl/GSM6810037_CNVS-NORM-110033633-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "d0693203968f89790aafd187c5e66972a1889c6c69b1693ce43fedcf79975afe",
+    "md5": "0aa3cf41ab8c47cdbe11be0a7ce737c6",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810038_CNVS-NORM-110033727-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810038/suppl/GSM6810038_CNVS-NORM-110033727-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "79a8fd72f3445dfa256cf1f3f280f085035d6f4a9b6ca2a43fa5476ebd1f40cf",
+    "md5": "89f617947ee74bc395f2dfc4cf4cebeb",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810039_CNVS-NORM-110033745-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810039/suppl/GSM6810039_CNVS-NORM-110033745-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "7cc34188646efac11a2d2bd98f5c7db9b8cd19913de720a585bf60f041bcfa45",
+    "md5": "4adb45352cd9853051568f782f44d1a1",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810040_CNVS-NORM-110033746-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810040/suppl/GSM6810040_CNVS-NORM-110033746-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "285b38d081ccdcd3cf6bfe2c082ed6e7bd4901cabd36d0f3bfa4134b9b09ce64",
+    "md5": "ec1935ae0fc31c3dc8a30b8e9de84592",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810041_CNVS-NORM-110033750-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810041/suppl/GSM6810041_CNVS-NORM-110033750-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "34bac69c181e377c5a3115494cba0b8f66f069105b044ceb4888c0deb733b139",
+    "md5": "c32d2b78e00240bbd53d444fdf474f9c",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810042_CNVS-NORM-110033907-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810042/suppl/GSM6810042_CNVS-NORM-110033907-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "0f4e6294eb172447452e0fcec5ad5bb836d898d36e98ad41db11e1ee8fd43afc",
+    "md5": "a7d47091a56ff173507058d33a5112a2",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810043_CNVS-NORM-110033912-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810043/suppl/GSM6810043_CNVS-NORM-110033912-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "cc12b99796b9445374d95373d75f912ddb946c76dd9eb5b10de932eea3a14607",
+    "md5": "aa87cea4861c2f5b7d0829cfed036bc0",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810044_CNVS-NORM-110033933-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810044/suppl/GSM6810044_CNVS-NORM-110033933-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "591c86f5e2f762a5c6fab41f0e47b3a153d553515990f58e927e62725875ff60",
+    "md5": "264b9a91ff81688f32ed9117c925cdd9",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810045_CNVS-NORM-110036059-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810045/suppl/GSM6810045_CNVS-NORM-110036059-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "3004f5b8b509026c5789adeab5ee465a104f540e88cd4410e5010142121fcf8e",
+    "md5": "d98c985810dcd128188a36b481839308",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810046_CNVS-NORM-110036107-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810046/suppl/GSM6810046_CNVS-NORM-110036107-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "08fdc2a324202c0d7db3c2cd75b34bdea1d191ddb81eee4f480567f63a8ee099",
+    "md5": "b9fc624c3d64f25dc20c3df071a9cd1b",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810047_CNVS-NORM-110036138-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810047/suppl/GSM6810047_CNVS-NORM-110036138-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "716cb5d1fca913571b7f9578749a3e89a2caf0fad6c1a218328faddb8acc352c",
+    "md5": "25bd1f691487cc3b948aae75fff927b0",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE186458",
+    "file": "beta_hg19/GSM6810048_CNVS-NORM-110036152-WBC-WGBS-Rep1.beta",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6810nnn/GSM6810048/suppl/GSM6810048_CNVS-NORM-110036152-WBC-WGBS-Rep1.beta",
+    "bytes": 56434896,
+    "sha256": "dbd7bbcb228f095efe7bc58b3c5c6f68a709996345d1ade66ea85a37ce924bdf",
+    "md5": "2db01edc178718aea19b7343f28e97f7",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE35069",
+    "file": "GSE35069_Matrix_signal_intensities.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE35nnn/GSE35069/suppl/GSE35069_Matrix_signal_intensities.txt.gz",
+    "bytes": 257386038,
+    "sha256": "3d650bcc644c71180cd34ef04f3ad90a365ce9448d1caa9201d0aeac2ab41424",
+    "md5": "5c9ba3a307b50f4116e6c9859837bb96",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56046",
+    "file": "GSE56046_README.txt",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56046/suppl/GSE56046_README.txt",
+    "bytes": 1649,
+    "sha256": "59820e45507663fcef971d53bdf79c82959fd89fcfad0b3bf413b97bda72c670",
+    "md5": "e6630528217c75a2363e26b4d054d66e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56046",
+    "file": "GSE56046_methylome_normalized.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56046/suppl/GSE56046_methylome_normalized.txt.gz",
+    "bytes": 4767511671,
+    "sha256": "15879abd302b251ae01a251dde89228339edfaad110089b28ff7f8ced853cae3",
+    "md5": "90c112498ee9d09ca26adf111b239f79",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56046",
+    "file": "GSE56046_methylome_signal_intensities.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56046/suppl/GSE56046_methylome_signal_intensities.txt.gz",
+    "bytes": 9896781378,
+    "sha256": "2aa4d3233149408795a15866035a672895005197e52717e38a9e93502b711995",
+    "md5": "00025f373b15aba844bc0396af3becc6",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56046",
+    "file": "GSE56046_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56046/matrix/GSE56046_series_matrix.txt.gz",
+    "bytes": 69341,
+    "sha256": "4f76770971f0ea7b21af7f0d526ea414c503817e32467f06ff7e4c88a5ee73ad",
+    "md5": "5ce4310a1b9458dde70c12f7566a9b3c",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56581",
+    "file": "GSE56581_README.txt",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56581/suppl/GSE56581_README.txt",
+    "bytes": 1649,
+    "sha256": "59820e45507663fcef971d53bdf79c82959fd89fcfad0b3bf413b97bda72c670",
+    "md5": "e6630528217c75a2363e26b4d054d66e",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56581",
+    "file": "GSE56581_methylome_normalized.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56581/suppl/GSE56581_methylome_normalized.txt.gz",
+    "bytes": 870237751,
+    "sha256": "38c91762269e8492effaad30e37a9e46b3bd2382b57dbf344ad7a4950d7875d7",
+    "md5": "7be5e0f621d48a66b8c41b8e7f582208",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56581",
+    "file": "GSE56581_methylome_signal_intensities.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56581/suppl/GSE56581_methylome_signal_intensities.txt.gz",
+    "bytes": 1788777971,
+    "sha256": "0cbff259f75e5de370e722ed9ac23813d2a202a863c1b83cd488f4420a6b1be1",
+    "md5": "382b40b53f48a6d411fee5959527ff74",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE56581",
+    "file": "GSE56581_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE56nnn/GSE56581/matrix/GSE56581_series_matrix.txt.gz",
+    "bytes": 18616,
+    "sha256": "eab3dafa758ac155c706bffc041ea20c9a4be8d13dd5c09108c505253ad497a4",
+    "md5": "11118a09cccb9daa9f6c60d0639b43c1",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE59250",
+    "file": "GSE59250_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE59nnn/GSE59250/matrix/GSE59250_series_matrix.txt.gz",
+    "bytes": 848411457,
+    "sha256": "65840757088466b0b238e57a4718b51472a959ca0eb4bfcc50a299c849766f31",
+    "md5": "a34a7f54bef88a8d0c18c1152aa76af2",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE59250",
+    "file": "GSE59250_signal_intensities.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE59nnn/GSE59250/suppl/GSE59250_signal_intensities.txt.gz",
+    "bytes": 1013741511,
+    "sha256": "b802765f422e8cff08a7225b356052eb81781d95b9d21cc8e92260a4b7890137",
+    "md5": "76265992a90092cb6788c455b6b6466a",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE68456",
+    "file": "GSE68456_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE68nnn/GSE68456/suppl/GSE68456_RAW.tar",
+    "bytes": 536576000,
+    "sha256": "2bf7a32805317b0e374cf40749ef89ad1c67417d89ff718e577894d36ce833e8",
+    "md5": "2b1fce9b82d6563fccf87e5963a862da",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE68456",
+    "file": "GSE68456_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE68nnn/GSE68456/matrix/GSE68456_series_matrix.txt.gz",
+    "bytes": 134000559,
+    "sha256": "1f3a8faee4284a4b92c16664ff796c0c5babb4330293107e498d75286b443b4c",
+    "md5": "c2741094b6c74ee2447a9239fe79487a",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE87640",
+    "file": "GSE87640_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87640/suppl/GSE87640_RAW.tar",
+    "bytes": 2226176000,
+    "sha256": "181c5b459bf5a117e9f90ccb084b948e0051f3fd0713ebb71a94607b83cb6e47",
+    "md5": "255e2efc9c8acf5498761f958fe1e1b0",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "GSE87640",
+    "file": "GSE87640_series_matrix.txt.gz",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87640/matrix/GSE87640_series_matrix.txt.gz",
+    "bytes": 944126651,
+    "sha256": "a7964f3d44f5ee58cd3dc52c755cf16ee2916034cc20e5267c5d04cbe3cbec2d",
+    "md5": "11045658081a6a6161d5d8f150273ccc",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "deconvMe",
+    "file": "beta.csv",
+    "url": "https://ndownloader.figshare.com/files/57277418",
+    "bytes": 777418325,
+    "sha256": "c361df0e4229875266c5c59f7a2c4175cfec983539cdeb0dc1eb098443767d99",
+    "md5": "ca9c9acb24c126471e374e7b273d908f",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "deconvMe",
+    "file": "meta_flow.csv",
+    "url": "https://ndownloader.figshare.com/files/60508472",
+    "bytes": 49139,
+    "sha256": "66a3f02c4b3ae5ac482da8b34a0d674cd8ae7bae1e9e9efd970ab0881e9aad3a",
+    "md5": "aafd5ab23979a0cb4561b97d78f53a36",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "deconvMe",
+    "file": "meth.csv",
+    "url": "https://ndownloader.figshare.com/files/57277412",
+    "bytes": 228537456,
+    "sha256": "7f4a0e33f10df4492644ac833c018267f7d30c2b99f6a376a4e3dd2ae0b504da",
+    "md5": "a9da0055afbe89b977cac065aa87e98c",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "deconvMe",
+    "file": "unmeth.csv",
+    "url": "https://ndownloader.figshare.com/files/57277409",
+    "bytes": 223297880,
+    "sha256": "d2bf40d7dd864763e13c85f268e3097709e53b445a222abf9a4b0ce8efc0f549",
+    "md5": "ff66fa6aa7038119a117b51d66002845",
+    "downloaded": "2026-11-12"
+  },
+  {
+    "series": "hg19",
+    "file": "hg19.fa.gz",
+    "url": "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz",
+    "bytes": 948731419,
+    "sha256": "ac73947d38df63ccb00724520a5c31d880c1ca423702ca7ccb7e6c2182a362d9",
+    "md5": "806c02398f5ac5da8ffd6da2d1d5d1a9",
+    "downloaded": "2026-11-12"
+  }
+]

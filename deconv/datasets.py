@@ -22,7 +22,7 @@ import pandas as pd
 
 import geo
 
-RAW = Path(os.environ.get("DECONV_RAW", str(Path.home() / "data" / "comp-genomics" / "deconv" / "raw")))
+RAW = Path(os.environ.get("DECONV_RAW", r"C:\Users\Saxen\data\comp-genomics\deconv\raw"))
 CACHE = RAW.parent / "cache"
 PREPROC = os.environ.get("DECONV_PREPROC", "geo")
 
