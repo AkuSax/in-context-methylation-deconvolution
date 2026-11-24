@@ -12,3 +12,7 @@ __pycache__/
 *.f32.bin
 *.pt
 *.ckpt
+
+# local data and outputs
+data/
+deconv/results/

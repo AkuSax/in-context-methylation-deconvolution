@@ -117,13 +117,38 @@ def _noob_chunked(gse: str, grn: list[Path], prefix: Path, detp_max: float, chun
         _run_noob(gse, part_dir, part, detp_max)
         shutil.rmtree(part_dir)
         parts.append(part)
-    probes = Path(f"{parts[0]}.probes.txt").read_text()
-    if any(Path(f"{p}.probes.txt").read_text() != probes for p in parts[1:]):
-        raise RuntimeError(f"{gse}: chunks disagree on the probe list")
-    with open(f"{prefix}.f32.bin", "wb") as out:  # column-major, so columns concatenate
-        for p in parts:
-            with open(f"{p}.f32.bin", "rb") as src:
-                shutil.copyfileobj(src, out, 1 << 24)
+    lists = [Path(f"{p}.probes.txt").read_text().split() for p in parts]
+    if all(l == lists[0] for l in lists[1:]):
+        probes = Path(f"{parts[0]}.probes.txt").read_text()
+        with open(f"{prefix}.f32.bin", "wb") as out:  # column-major, so columns concatenate
+            for p in parts:
+                with open(f"{p}.f32.bin", "rb") as src:
+                    shutil.copyfileobj(src, out, 1 << 24)
+    else:
+        # minfi drops a probe from a chunk when any array in it gives an unusable value, so the
+        # row set can differ between chunks (values at shared probes are identical: each array is
+        # processed on its own). Keep the probes present in every chunk and record what was dropped.
+        import numpy as np
+        for p, l in zip(parts, lists):
+            if len(set(l)) != len(l):
+                raise ValueError(f"{gse}: duplicate probe IDs in {p.name}")
+        sets = [set(l) for l in lists]
+        keep = set.intersection(*sets)
+        common = [x for x in lists[0] if x in keep]       # the common order: chunk 0's order, by probe ID
+        dropped = sorted(set().union(*sets) - keep)
+        print(f"{gse}: chunks disagree on the probe list; joining on the {len(common)} probes common to all "
+              f"chunks ({len(dropped)} dropped)", flush=True)
+        Path(f"{prefix}.dropped_probes.txt").write_text("\n".join(dropped) + "\n")
+        probes = "\n".join(common) + "\n"
+        with open(f"{prefix}.f32.bin", "wb") as out:
+            for p, l in zip(parts, lists):
+                n = len(Path(f"{p}.samples.txt").read_text().split())
+                a = np.fromfile(f"{p}.f32.bin", dtype=np.float32).reshape(n, len(l))
+                # Rows are looked up by probe ID in this chunk's own order, so a chunk that lists the common
+                # probes in a different order is realigned to `common` (a plain `x in keep` filter would keep
+                # this chunk's order and silently label one probe's values with another probe's name).
+                position = {x: i for i, x in enumerate(l)}
+                a[:, [position[x] for x in common]].tofile(out)
     Path(f"{prefix}.probes.txt").write_text(probes)
     Path(f"{prefix}.samples.txt").write_text("".join(Path(f"{p}.samples.txt").read_text() for p in parts))
     pd.concat([pd.read_csv(f"{p}.qc.csv") for p in parts]).to_csv(f"{prefix}.qc.csv", index=False)

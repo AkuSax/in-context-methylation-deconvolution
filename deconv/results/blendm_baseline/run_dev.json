@@ -1,9 +1,0 @@
-{
-  "seeds": 5,
-  "per_side": 25,
-  "parts": [
-    "dev"
-  ],
-  "blendm_commit": "90546bc3e75bf4fb3be50c1b0336b7650241f074",
-  "n_failures": 0
-}

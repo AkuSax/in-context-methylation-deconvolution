@@ -18,7 +18,7 @@ import pandas as pd
 from scipy.optimize import lsq_linear, minimize
 from scipy.optimize import nnls as _nnls
 
-RSCRIPT = os.environ.get("RSCRIPT", r"C:\Program Files\R\R-4.2.2\bin\Rscript.exe")
+RSCRIPT = os.environ.get("RSCRIPT", "Rscript")
 _R_HELPER = Path(__file__).with_name("epidish_solve.R")
 _RPC_BATCH_HELPER = Path(__file__).with_name("epidish_rpc_batch.R")
 
