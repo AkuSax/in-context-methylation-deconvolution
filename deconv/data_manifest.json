@@ -16,6 +16,14 @@
     "downloaded": "2026-11-11"
   },
   {
+    "series": "GSE110530",
+    "file": "GSE110530_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE110nnn/GSE110530/suppl/GSE110530_RAW.tar",
+    "bytes": 347125760,
+    "sha256": "f08bc28f681adc768c071bf6bf20344e51a0c8e75ac57a73d3f3ac426c83dea0",
+    "downloaded": "2026-11-18"
+  },
+  {
     "series": "GSE110554",
     "file": "GSE110554_series_matrix.txt.gz",
     "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE110nnn/GSE110554/matrix/GSE110554_series_matrix.txt.gz",
@@ -64,6 +72,46 @@
     "downloaded": "2026-11-11"
   },
   {
+    "series": "GSE129376",
+    "file": "GSE129376_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE129nnn/GSE129376/suppl/GSE129376_RAW.tar",
+    "bytes": 169021440,
+    "sha256": "6468a3f7ef6e10ae75205f73d1069f85104e3c02b98060c1758f8c74c2401be5",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE130029",
+    "file": "GSE130029_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE130nnn/GSE130029/suppl/GSE130029_RAW.tar",
+    "bytes": 459489280,
+    "sha256": "120c5d84d4aaed2dfefe0adf4c8c61973f234848410445a9d0f7208fd206fead",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE130030",
+    "file": "GSE130030_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE130nnn/GSE130030/suppl/GSE130030_RAW.tar",
+    "bytes": 432527360,
+    "sha256": "97fad1b0a4ac72c92e48a182e85d56397b988003610fc1cf36442bc7fe5dafff",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE131989",
+    "file": "GSE131989_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE131nnn/GSE131989/suppl/GSE131989_RAW.tar",
+    "bytes": 3204505600,
+    "sha256": "b2b33682392053703c5e25a584983a5460ff4f934c6f791ffed9a4d01c118f3b",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE137594",
+    "file": "GSE137594_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE137nnn/GSE137594/suppl/GSE137594_RAW.tar",
+    "bytes": 1900298240,
+    "sha256": "dc8addedd8db823daf3316c5fef266940547b7c464a0ba20e4fc50937720d0dd",
+    "downloaded": "2026-11-18"
+  },
+  {
     "series": "GSE166844",
     "file": "GSE166844_series_matrix.txt.gz",
     "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE166nnn/GSE166844/matrix/GSE166844_series_matrix.txt.gz",
@@ -96,6 +144,30 @@
     "downloaded": "2026-11-11"
   },
   {
+    "series": "GSE174666",
+    "file": "GSE174666_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE174nnn/GSE174666/suppl/GSE174666_RAW.tar",
+    "bytes": 1012869120,
+    "sha256": "67a662d92b3d5625f5fe3175bda7850dc7b7c6048c415ae9d9412ba467daa037",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE180683",
+    "file": "GSE180683_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180683/suppl/GSE180683_RAW.tar",
+    "bytes": 1293680640,
+    "sha256": "ced19f4e952fb9ca677c4b4d5aa1537c8e0a6d24215e1d6c92228a633168f63a",
+    "downloaded": "2026-11-24"
+  },
+  {
+    "series": "GSE180970",
+    "file": "GSE180970_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180970/suppl/GSE180970_RAW.tar",
+    "bytes": 346705920,
+    "sha256": "1b8517327dbc3ff5290cdb8d41175031439ec03758decee33e6d31a6068079bb",
+    "downloaded": "2026-11-18"
+  },
+  {
     "series": "GSE182379",
     "file": "GSE182379_series_matrix.txt.gz",
     "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE182nnn/GSE182379/matrix/GSE182379_series_matrix.txt.gz",
@@ -112,6 +184,94 @@
     "downloaded": "2026-11-11"
   },
   {
+    "series": "GSE277573",
+    "file": "GSE277573_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE277nnn/GSE277573/suppl/GSE277573_RAW.tar",
+    "bytes": 1659832320,
+    "sha256": "0769ddaf9105956a38954c064f623b2ee2485d390b72477c663fe06aa6e99416",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE286313",
+    "file": "GSE286313_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE286nnn/GSE286313/suppl/GSE286313_RAW.tar",
+    "bytes": 2338140160,
+    "sha256": "2e8e7d4073b6c0da9e1f9eac39543a89008fbc1d9adfb71cf477a50de8083bf6",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE48472",
+    "file": "GSE48472_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE48nnn/GSE48472/suppl/GSE48472_RAW.tar",
+    "bytes": 674048000,
+    "sha256": "30676e22e258066889a3d4c31926a6850e4fa4992f9c6a508f022e631549d691",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE49667",
+    "file": "GSE49667_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49667/suppl/GSE49667_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE50222",
+    "file": "GSE50222_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE50nnn/GSE50222/suppl/GSE50222_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE59065",
+    "file": "GSE59065_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE59nnn/GSE59065/suppl/GSE59065_RAW.tar",
+    "bytes": 2698721280,
+    "sha256": "1d74997bc7e3d3dfcb47542bf0612d9a25d73928630edb4d2ef746715ce229ed",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE63499",
+    "file": "GSE63499_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE63nnn/GSE63499/suppl/GSE63499_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE65097",
+    "file": "GSE65097_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE65nnn/GSE65097/suppl/GSE65097_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE71244",
+    "file": "GSE71244_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE71nnn/GSE71244/suppl/GSE71244_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE71955",
+    "file": "GSE71955_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE71nnn/GSE71955/suppl/GSE71955_RAW.tar",
+    "bytes": 1356861440,
+    "sha256": "4acc81993f900a4343a1fad429cfceb080ea36ea18763214304bb1bf06e449ac",
+    "downloaded": "2026-11-18"
+  },
+  {
+    "series": "GSE77445",
+    "file": "GSE77445_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE77nnn/GSE77445/suppl/GSE77445_RAW.tar",
+    "bytes": 192020480,
+    "sha256": "4d346bcafdcf790a67ecd723cad59720f5eb616921af0907bf4c713ee0034921",
+    "downloaded": "2026-11-18"
+  },
+  {
     "series": "GSE77797",
     "file": "GSE77797_series_matrix.txt.gz",
     "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE77nnn/GSE77797/matrix/GSE77797_series_matrix.txt.gz",
@@ -126,5 +286,13 @@
     "bytes": 347637760,
     "sha256": "9ede5034ed295ec886cd78b8fc18b664f0ddb723ce9d79be456ee874b606a6bf",
     "downloaded": "2026-11-11"
+  },
+  {
+    "series": "GSE82084",
+    "file": "GSE82084_RAW.tar",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE82nnn/GSE82084/suppl/GSE82084_RAW.tar",
+    "bytes": 498657280,
+    "sha256": "1c1b679b2dbba51c887543ef61138824e0472cf593d722505ce8a7b593bfc261",
+    "downloaded": "2026-11-18"
   }
 ]

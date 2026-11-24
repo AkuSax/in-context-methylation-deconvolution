@@ -90,6 +90,7 @@ import argparse
 import json
 import math
 import time
+import os
 from pathlib import Path
 
 import numpy as np
@@ -126,6 +127,55 @@ VALIDATION_SOURCES = (
     ("joint", dict(mixture_group="GSE103541", cross_study=True), None),
     ("joint", dict(mixture_group="GSE35069", cross_study=True), None),
 )
+# v7 (flag-gated, `--prior v7`): two more training panels from simulator.build_v7_panels.
+# "lymph": real lymphocyte subtypes (GSE174666 pseudo-donors); "bcell": GSE103541 donors with
+# GSE137594 B arrays. Neither is sharpened. Their weights are arguments (--lymph-weight,
+# --bcell-weight); the four v6 sources share the rest in their v6 proportions.
+# Audit 2026-11-19: the lymph weight defaults to 0 (array reuse inside an episode; see V7_AUDIT_2026-11-19.md), the
+# omission mode to "retained_first" (simulator.OMISSION_MODES) and the B source to the per-episode bank mix.
+V7_DEFAULTS = dict(lymph_weight=0.0, bcell_weight=0.10, real_marker_prob=0.30, omission_mode="retained_first",
+                   bcell_mode="mix")
+WIDE_MARKERS = (150, 1200)
+# B-cell source modes (--bcell-mode). Each entry is (panel, simulate_cohort arguments, sharpen rule). "bank" = a B array of
+# the GSE137594 bank (one per patient, redrawn for every donor of every episode, training patients only); "orig" = the
+# panel's own GSE103541/GSE35069 B arrays. Reference donors take the reference source, all other donors the query source;
+# when the two differ the simulator forces donor mismatch.
+_B = dict(mixture_group="GSE103541", b_bank="bcell_bank")
+BCELL_MODES = {
+    "legacy": (("bcell", dict(), None),),                                   # v7 as first built: 20 fixed pseudo-donor B arrays
+    "same": (("joint", dict(_B, b_ref="bank", b_query="bank"), None),),      # bank -> bank (same-source control)
+    "orig_to_bank": (("joint", dict(_B, b_ref="orig", b_query="bank"), None),),   # reference B original, query B patient
+    "bank_to_orig": (("joint", dict(_B, b_ref="bank", b_query="orig"), None),),   # reference B patient, query B original
+}
+BCELL_MODES["mix"] = BCELL_MODES["same"] + BCELL_MODES["orig_to_bank"] + BCELL_MODES["bank_to_orig"]
+
+
+def v7_sources(lymph_weight, bcell_weight, bcell_mode="mix"):
+    """SOURCES with the v7 panels added; v6 sources are rescaled to the remaining weight.
+
+    The bcell weight is split equally over the entries of BCELL_MODES[bcell_mode]."""
+    rest = 1.0 - lymph_weight - bcell_weight
+    if lymph_weight < 0 or bcell_weight < 0 or rest <= 0:
+        raise ValueError("Weights must be non-negative and sum to less than one")
+    if bcell_mode not in BCELL_MODES:
+        raise ValueError(f"--bcell-mode must be one of {tuple(BCELL_MODES)}")
+    base = tuple((n, e, r, p * rest) for n, e, r, p in SOURCES)
+    extra = (((("lymph", dict(), None),), lymph_weight), (BCELL_MODES[bcell_mode], bcell_weight))
+    for entries, w in extra:
+        if w > 0:
+            base += tuple((n, e, r, w / len(entries)) for n, e, r in entries)
+    return base
+
+
+def v7_marker_probs(real_prob):
+    """MARKER_MODE_PROBS with `real_prob` moved from "pick" to "real" (0 gives the v6 mix)."""
+    if not 0 <= real_prob <= MARKER_MODE_PROBS["pick"]:
+        raise ValueError("--real-marker-prob must lie between 0 and the v6 'pick' probability")
+    if real_prob == 0:
+        return dict(MARKER_MODE_PROBS)
+    return dict(MARKER_MODE_PROBS, pick=MARKER_MODE_PROBS["pick"] - real_prob, real=real_prob)
+
+
 COHORT_SIZES = {1: 0.1, 4: 0.2, 8: 0.4, 16: 0.3}
 VALIDATION_COHORT = 8
 
@@ -182,34 +232,61 @@ def to_device(batch, device):
 class PriorTasks(IterableDataset):
     """Endless batches from the training prior. Each batch shares K and M."""
 
-    def __init__(self, panels, pools, seed, batch_size, types, markers):
+    def __init__(self, panels, pools, seed, batch_size, types, markers, sources=None, marker_probs=None,
+                 omission_mode="legacy", exclude_shared_arrays=False):
         self.panels, self.pools, self.seed, self.batch_size = panels, pools, seed, batch_size
         self.types, self.markers = types, markers
+        self.omission_mode, self.exclude_shared_arrays = omission_mode, exclude_shared_arrays
+        self.sources = SOURCES if sources is None else sources            # v7: see v7_sources
+        self.marker_probs = MARKER_MODE_PROBS if marker_probs is None else marker_probs
+
+    def resolve(self, name, extra):
+        """Source arguments as simulate_cohort takes them: a b_bank name becomes the bank panel, and the v7
+        omission / shared-array options are added. Unchanged for the v6 prior (returns `extra` itself)."""
+        if (self.omission_mode == "legacy" and not self.exclude_shared_arrays and "b_bank" not in extra):
+            return extra
+        extra = dict(extra)
+        if isinstance(extra.get("b_bank"), str):
+            extra["b_bank"] = self.panels[extra["b_bank"]]
+        if self.omission_mode != "legacy":
+            extra["omission_mode"] = self.omission_mode
+        if self.exclude_shared_arrays and name in ("lymph", "bcell"):
+            extra["exclude_shared_arrays"] = True
+        return extra
 
     def __iter__(self):
         info = get_worker_info()
         worker = 0 if info is None else info.id
         torch.set_num_threads(1)
         rng = np.random.default_rng([self.seed, worker])
-        modes, mode_p = list(MARKER_MODE_PROBS), list(MARKER_MODE_PROBS.values())
+        modes, mode_p = list(self.marker_probs), list(self.marker_probs.values())
         sizes, size_p = list(COHORT_SIZES), list(COHORT_SIZES.values())
-        source_p = [s[3] for s in SOURCES]
+        source_p = [s[3] for s in self.sources]
         while True:
             k = int(rng.integers(self.types[0], self.types[1] + 1))
             m = int(rng.integers(self.markers[0], self.markers[1] + 1))
             size = int(rng.choice(sizes, p=size_p))
             cohorts = []
             for _ in range(max(1, self.batch_size // size)):
-                name, extra, rule, _ = SOURCES[int(rng.choice(len(SOURCES), p=source_p))]
+                name, extra, rule, _ = self.sources[int(rng.choice(len(self.sources), p=source_p))]
                 missing = int(rng.choice(4, p=MISSING_PROBS))
-                cohorts.append(simulator.simulate_cohort(
-                    self.panels[name], rng, size, n_markers=m, n_types=k, missing=missing, augment=True,
-                    donor_mismatch=bool(rng.random() < 0.5), noise=float(rng.uniform(*TRAIN_NOISE)),
-                    marker_mode=str(rng.choice(modes, p=mode_p)), zero_type_prob=0.1,
-                    concentration_range=(2, 30), neutrophil_weight=float(rng.uniform(1, 6)),
-                    tech_shift=True, **TECH_SHIFT_RANGES,
-                    candidate_pool=self.pools[name], **extra, **sharpen_args(rule, rng),
-                ))
+                extra = self.resolve(name, extra)
+                for attempt in range(100):
+                    try:
+                        cohorts.append(simulator.simulate_cohort(
+                            self.panels[name], rng, size, n_markers=m, n_types=k, missing=missing, augment=True,
+                            donor_mismatch=bool(rng.random() < 0.5), noise=float(rng.uniform(*TRAIN_NOISE)),
+                            marker_mode=str(rng.choice(modes, p=mode_p)), zero_type_prob=0.1,
+                            concentration_range=(2, 30), neutrophil_weight=float(rng.uniform(1, 6)),
+                            tech_shift=True, **TECH_SHIFT_RANGES,
+                            candidate_pool=self.pools[name], **extra, **sharpen_args(rule, rng),
+                        ))
+                        break
+                    except simulator.NoEligibleDonors:
+                        # only with exclude_shared_arrays (a mismatch task whose every donor shares an array
+                        # with the mixture donor): draw the cohort again; any other panel re-raises
+                        if not self.exclude_shared_arrays or attempt == 99:
+                            raise
             yield collate(cohorts)
 
 
@@ -228,6 +305,112 @@ def validation_set(panels, pools, seed, per_regime, markers):
                 **sharpen_args(rule, rng)))
         out[name] = collate(cohorts)
     return out
+
+
+# ---------------------------------------------------------------------------
+# v7 validation scorecard (flag-gated: --select-by scorecard)
+# ---------------------------------------------------------------------------
+# The legacy selection (mean NLL of validation_set at one marker count, legacy `pick` markers, three joint-panel
+# configurations) never sees wide marker panels, the real picker, the B-source variants or the omission-matched
+# simulator. The scorecard is a fixed bank of held-donor cohorts: for each cell = (source variant, marker count) the same
+# VALIDATION_REGIMES (clean / mismatch / 1-2 omitted, 6 and 12 types) cycle over the cohorts, markers come from the
+# 'real' picker, the sharpen rule is the training one, and omitted tasks use the omission mode the model is trained
+# with. Selection value = weighted mean NLL over cells:
+#     aggregate = sum_c w_c * NLL_c / sum_c w_c,  w_c = SCORECARD_SOURCE_WEIGHTS[family] / (#variants of that family
+#     in the scorecard x #marker counts)
+# i.e. every marker count counts equally inside a family, the B variants share the weight of the 'bcell' family, and the
+# families are weighted 1 : 2 : 1 : 0.5 (gse35069 : joint : bcell : lymph). 'lymph' is added only when its training
+# weight is above zero; its validation panel has 6 pseudo-donors from 7 arrays and is descriptive. Each cell's NLL, kept
+# RMSE, other MAE and the NLL split into complete and omitted tasks are logged at every evaluation.
+SCORECARD_MARKERS = (150, 300, 600, 1000)
+# The scorecard's omitted tasks always use this mode, whatever the training prior uses, so a v6 arm and a v7 arm are
+# selected on identical validation tasks. Cost on CPU: building the cells (4 markers x 5 variants x 14 cohorts of 8) and a
+# full scorecard pass are both a few minutes at 14 cohorts/cell (see V7_AUDIT_3_COMMANDS_SCORECARD_2026-11-19.md).
+SCORECARD_OMISSION_MODE = "retained_first"
+SCORECARD_SOURCE_WEIGHTS = {"gse35069": 1.0, "joint": 2.0, "bcell": 1.0, "lymph": 0.5}
+
+
+def scorecard_variants(panels, lymph=False, bcell_mode="mix"):
+    """[(family, variant, panel name, [simulate_cohort arguments cycled over the cohorts], sharpen rule)]."""
+    out = [("gse35069", "gse35069", "gse35069", [dict()], "all"),
+           ("joint", "joint", "joint", [dict(e) for _, e, _ in VALIDATION_SOURCES], None)]
+    if "bcell_bank" in panels and bcell_mode != "legacy":
+        names = {"same": ("same",), "orig_to_bank": ("orig_to_bank",), "bank_to_orig": ("bank_to_orig",),
+                 "mix": ("same", "orig_to_bank", "bank_to_orig")}[bcell_mode]
+        for v in names:
+            ((_, extra, _),) = BCELL_MODES[v]
+            out.append(("bcell", v, "joint", [dict(extra)], None))
+    elif "bcell" in panels and bcell_mode == "legacy":
+        out.append(("bcell", "legacy", "bcell", [dict()], None))
+    if lymph and "lymph" in panels:
+        out.append(("lymph", "lymph", "lymph", [dict()], None))
+    return out
+
+
+def scorecard_set(panels, pools, seed, per_cell, markers=SCORECARD_MARKERS, lymph=False, bcell_mode="mix",
+                  omission_mode="retained_first"):
+    """({cell name: collated batch}, [(name, family, weight)]) with the weights documented above."""
+    import zlib
+    variants = scorecard_variants(panels, lymph, bcell_mode)
+    per_family = {}
+    for fam, *_ in variants:
+        per_family[fam] = per_family.get(fam, 0) + 1
+    batches, table = {}, []
+    for fam, variant, panel_name, extras, rule in variants:
+        for m in markers:
+            name = f"{fam}/{variant}/M{m}"
+            rng = np.random.default_rng([seed, zlib.crc32(name.encode()), 777])
+            by_regime = {}         # K differs between regimes, so each regime is collated on its own
+            for i in range(max(1, per_cell)):
+                regime, k, missing, mismatch = VALIDATION_REGIMES[i % len(VALIDATION_REGIMES)]
+                extra = dict(extras[i % len(extras)])
+                if isinstance(extra.get("b_bank"), str):
+                    extra["b_bank"] = panels[extra["b_bank"]]
+                by_regime.setdefault(regime, []).append(simulator.simulate_cohort(
+                    panels[panel_name], rng, VALIDATION_COHORT, n_markers=m, n_types=k, missing=missing,
+                    donor_mismatch=mismatch, augment=True, marker_mode="real", omission_mode=omission_mode,
+                    tech_shift=True, **TECH_SHIFT_RANGES, candidate_pool=pools[panel_name], **extra,
+                    **sharpen_args(rule, rng)))
+            batches[name] = [collate(c) for c in by_regime.values()]     # list of batches, one per regime
+            table.append((name, fam, SCORECARD_SOURCE_WEIGHTS[fam] / (per_family[fam] * len(markers))))
+    return batches, table
+
+
+def score_scorecard(model, batches, table, prior_other=None):
+    """Per-cell metrics and the weighted aggregate NLL (lower is better).
+
+    Reference columns (logged, never used for selection): `rpc_kept_rmse_pts` (plain RPC, other = 0) and, when
+    `prior_other` is given, `rpc_shrunk_kept_rmse_pts` / `rpc_shrunk_other_mae_pts` for the constant-shrinkage RPC
+    (kept = rpc * (1 - prior_other), other = prior_other; prior_other = running mean of the training `other`)."""
+    model.eval()
+    cells, num, den = {}, 0.0, 0.0
+    for name, fam, w in table:
+        nll_all, om_all, sq, sq_rpc, sq_shr, n_kept, ae_other, ae_shr = [], [], 0.0, 0.0, 0.0, 0, 0.0, 0.0
+        for batch in batches[name]:                       # one batch per regime (different K)
+            truth = batch["truth"].numpy().astype(float)
+            mean, low, high, p_other, nll = predict(model, batch)
+            rpc = batch["fit"].fractions.cpu().numpy().astype(float)
+            nll_all.append(nll); om_all.append(truth[:, -1] > 0)
+            sq += float(((mean[:, :-1] - truth[:, :-1]) ** 2).sum()); n_kept += truth[:, :-1].size
+            sq_rpc += float(((rpc - truth[:, :-1]) ** 2).sum())
+            ae_other += float(np.abs(mean[:, -1] - truth[:, -1]).sum())
+            if prior_other is not None:
+                sq_shr += float(((rpc * (1 - prior_other) - truth[:, :-1]) ** 2).sum())
+                ae_shr += float(np.abs(prior_other - truth[:, -1]).sum())
+        nll, omitted = np.concatenate(nll_all), np.concatenate(om_all)
+        cells[name] = dict(
+            nll=float(nll.mean()), weight=w, n=len(nll),
+            nll_complete=float(nll[~omitted].mean()) if (~omitted).any() else None,
+            nll_omitted=float(nll[omitted].mean()) if omitted.any() else None,
+            kept_rmse_pts=100 * math.sqrt(sq / n_kept), other_mae_pts=100 * ae_other / len(nll),
+            rpc_kept_rmse_pts=100 * math.sqrt(sq_rpc / n_kept))
+        if prior_other is not None:
+            cells[name]["rpc_shrunk_kept_rmse_pts"] = 100 * math.sqrt(sq_shr / n_kept)
+            cells[name]["rpc_shrunk_other_mae_pts"] = 100 * ae_shr / len(nll)
+        num += w * cells[name]["nll"]
+        den += w
+    model.train()
+    return num / den, cells
 
 
 def predict(model, batch, chunk=32):
@@ -354,24 +537,92 @@ def main():
     parser.add_argument("--device", default="cpu", help="cpu or cuda")
     parser.add_argument("--panels", type=Path, default=None,
                         help="v6 panel file from simulator.save_panels; built from the raw data if omitted")
+    parser.add_argument("--ref-sampling", choices=simulator.REF_SAMPLING_MODES, default="legacy",
+                        help="reference-donor draw: legacy (with replacement) or unique (without)")
     parser.add_argument("--no-cohort", action="store_true", help="ablation: v5 architecture, no cohort features")
+    parser.add_argument("--prior", choices=("v6", "v7"), default="v6",
+                        help="v7 adds the 'lymph' and 'bcell' panels (needs a build_v7_panels file) and the 'real' marker mode")
+    parser.add_argument("--lymph-weight", type=float, default=None, help=f"v7 only; default {V7_DEFAULTS['lymph_weight']}")
+    parser.add_argument("--bcell-weight", type=float, default=None, help=f"v7 only; default {V7_DEFAULTS['bcell_weight']}")
+    parser.add_argument("--real-marker-prob", type=float, default=None,
+                        help=f"share of tasks using marker_mode 'real', taken from 'pick'; default 0 for v6, {V7_DEFAULTS['real_marker_prob']} for v7")
+    parser.add_argument("--omission-mode", choices=simulator.OMISSION_MODES, default=None,
+                        help="how the training prior builds incomplete references: 'legacy' (v6; retained + omitted types "
+                             "are built first, then columns dropped, which lets the retained reference reveal omission) or "
+                             "'retained_first' (v7; the retained reference is built as for a complete task and the omitted "
+                             f"columns are added); default legacy for v6, {V7_DEFAULTS['omission_mode']} for v7")
+    parser.add_argument("--bcell-mode", choices=tuple(BCELL_MODES), default=None,
+                        help="v7 B-cell source: legacy (fixed pseudo-donor panel 'bcell'), same (reference and query B from "
+                             "the GSE137594 bank), orig_to_bank (reference B original, query B patient), bank_to_orig (the "
+                             f"reverse), mix (those three equally); default {V7_DEFAULTS['bcell_mode']}")
+    parser.add_argument("--exclude-shared-arrays", action="store_true",
+                        help="v7: in donor-mismatch episodes of pseudo-donor panels (lymph, legacy bcell) drop reference donors "
+                             "that share a measured array with the mixture donor")
+    parser.add_argument("--select-by", choices=("legacy", "scorecard"), default="legacy",
+                        help="checkpoint choice: legacy = mean validation_set NLL (v6 rule, the default); scorecard = the v7 "
+                             "weighted NLL over source x marker-count cells (see SCORECARD_*); both are always logged")
+    parser.add_argument("--scorecard-per-cell", type=int, default=14,
+                        help="cohorts of 8 per scorecard cell (the 7 validation regimes cycle; default 14 = twice each)")
+    parser.add_argument("--wide-markers", action="store_true",
+                        help=f"train on {WIDE_MARKERS[0]}-{WIDE_MARKERS[1]} simulated markers (overrides --markers); the locked test panel has about 1000")
     args = parser.parse_args()
+    # Reference-donor sampling ('legacy' = v6/v7 default). Set through the environment
+    # so DataLoader workers inherit it; recorded in summary settings.
+    os.environ['DECONV_REF_SAMPLING'] = args.ref_sampling
+    simulator.REF_SAMPLING = args.ref_sampling
+    if args.prior == "v6" and (args.lymph_weight is not None or args.bcell_weight is not None
+                               or args.bcell_mode is not None or args.exclude_shared_arrays):
+        parser.error("--lymph-weight, --bcell-weight, --bcell-mode and --exclude-shared-arrays need --prior v7")
+    # Resolved defaults are written back so summary.json records what ran.
+    if args.omission_mode is None:
+        args.omission_mode = V7_DEFAULTS["omission_mode"] if args.prior == "v7" else "legacy"
+    if args.prior == "v7":
+        args.bcell_mode = V7_DEFAULTS["bcell_mode"] if args.bcell_mode is None else args.bcell_mode
+        args.lymph_weight = V7_DEFAULTS["lymph_weight"] if args.lymph_weight is None else args.lymph_weight
+        args.bcell_weight = V7_DEFAULTS["bcell_weight"] if args.bcell_weight is None else args.bcell_weight
+        args.real_marker_prob = V7_DEFAULTS["real_marker_prob"] if args.real_marker_prob is None else args.real_marker_prob
+    if args.wide_markers:
+        args.markers = list(WIDE_MARKERS)
     if args.out.exists():
         parser.error("--out must be a new directory")
     if not 2 <= args.types[0] <= args.types[1] <= 12 or args.markers[0] <= args.types[1]:
         parser.error("Use 2 to 12 types and more markers than types")
     args.out.mkdir(parents=True)
 
+    print(f"RESOLVED SETTINGS: prior={args.prior} cohort_features={'OFF (--no-cohort)' if args.no_cohort else 'ON'} "
+          f"select_by={args.select_by} wide_markers={args.wide_markers} markers={tuple(args.markers)}", flush=True)
     torch.set_num_threads(args.threads)
     torch.manual_seed(args.seed)
     # Panels and pools: the pools are screened on training donors only (build_v6_panels).
-    bundle = (simulator.load_panels(args.panels) if args.panels
-              else simulator.build_v6_panels(seed=args.seed, min_range=POOL_MIN_RANGE))
+    if args.prior == "v7":
+        lymph_w, bcell_w, real_p = args.lymph_weight, args.bcell_weight, args.real_marker_prob
+        prior_sources, prior_markers = v7_sources(lymph_w, bcell_w, args.bcell_mode), v7_marker_probs(real_p)
+        bundle = (simulator.load_panels(args.panels) if args.panels
+                  else simulator.build_v7_panels(seed=args.seed, min_range=POOL_MIN_RANGE))
+        for name, extra, *_ in prior_sources:
+            for needed in (name, extra.get("b_bank")):
+                if needed is not None and needed not in bundle["train"]:
+                    parser.error(f"--prior v7 needs panel {needed!r}; build the file with simulator.build_v7_panels")
+    else:
+        prior_sources, prior_markers = SOURCES, v7_marker_probs(args.real_marker_prob or 0.0)
+        bundle = (simulator.load_panels(args.panels) if args.panels
+                  else simulator.build_v6_panels(seed=args.seed, min_range=POOL_MIN_RANGE))
     train_panels, validation_panels, pools = bundle["train"], bundle["validation"], bundle["pools"]
     for p in (*train_panels.values(), *validation_panels.values()):
         p.cube()
     validation = validation_set(validation_panels, pools, args.seed, args.val_per_regime, args.val_markers)
-    loader = DataLoader(PriorTasks(train_panels, pools, args.seed, args.batch_size, args.types, args.markers),
+    card, card_table = None, None
+    if args.select_by == "scorecard":
+        card_markers = SCORECARD_MARKERS + ((WIDE_MARKERS[1],) if args.wide_markers else ())
+        t_card = time.time()
+        card, card_table = scorecard_set(
+            validation_panels, pools, args.seed, args.scorecard_per_cell, card_markers,
+            lymph=any(n == "lymph" for n, *_ in prior_sources), bcell_mode=args.bcell_mode or "mix",
+            omission_mode=SCORECARD_OMISSION_MODE)
+        print(f"scorecard: {len(card_table)} cells, {sum(len(x['truth']) for b in card.values() for x in b)} samples, "
+              f"built in {time.time() - t_card:.0f}s", flush=True)
+    loader = DataLoader(PriorTasks(train_panels, pools, args.seed, args.batch_size, args.types, args.markers,
+                                   prior_sources, prior_markers, args.omission_mode, args.exclude_shared_arrays),
                         batch_size=None, num_workers=args.workers, persistent_workers=args.workers > 0,
                         prefetch_factor=4 if args.workers else None)
     device = torch.device(args.device)
@@ -380,6 +631,7 @@ def main():
 
     log, evals = [], []
     other_sum, other_count, best = 0.0, 0, math.inf
+    best_legacy = math.inf
     start = time.time()
     for step, batch in enumerate(loader):
         if step >= args.steps:
@@ -405,36 +657,52 @@ def main():
             rows, detection = score(model, validation, prior_other)
             val_nll = float(np.mean([r["nll"] for r in rows if r["method"] == "model"]))
             evals.append(dict(step=step + 1, val_nll=val_nll, seconds=time.time() - start))
+            select_value = val_nll
+            if card is not None:
+                select_value, cells = score_scorecard(model, card, card_table, prior_other)
+                evals[-1].update(scorecard_nll=select_value, scorecard_cells=cells)
+                nll_txt = {k: round(v["nll"], 2) for k, v in cells.items()}
+                print(f"step {step + 1} scorecard_nll {select_value:.3f} {nll_txt}", flush=True)
+                if val_nll < best_legacy:                 # keep the v6-rule winner too, for comparison
+                    best_legacy = val_nll
+                    torch.save(model.state_dict(), args.out / "model_legacy_best.pt")
             summary = {r["regime"]: round(r["kept_rmse_pts"], 2) for r in rows if r["method"] == "model"}
             print(f"step {step + 1} loss {np.mean([x['loss'] for x in log[-args.eval_every:]]):.2f} "
                   f"val_nll {val_nll:.2f} kept_rmse {summary} {time.time() - start:.0f}s", flush=True)
-            if val_nll < best:
-                best = val_nll
+            if select_value < best:
+                best = select_value
                 torch.save(model.state_dict(), args.out / "model.pt")
-                best_result = dict(step=step + 1, prior_mean_other=prior_other, scores=rows, detection=detection)
+                best_result = dict(step=step + 1, prior_mean_other=prior_other, scores=rows, detection=detection,
+                                   selected_by=args.select_by, selection_value=select_value, val_nll=val_nll)
+                if card is not None:
+                    best_result["scorecard_cells"] = cells
     model.load_state_dict(torch.load(args.out / "model.pt", map_location=device))
     settings = {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items() if key != "out"}
     settings["cohort"] = not args.no_cohort
     result = dict(
-        version="v6", settings=settings,
+        version=args.prior, settings=settings,
         source={name: p.source for name, p in train_panels.items()},
         preprocessing={name: p.preprocessing for name, p in train_panels.items()},
         train_donors=sorted(set().union(*(p.donors.unique() for p in train_panels.values()))),
         validation_donors=sorted(set().union(*(p.donors.unique() for p in validation_panels.values()))),
-        training_prior=dict(missing_probs=MISSING_PROBS, marker_modes=MARKER_MODE_PROBS,
+        training_prior=dict(missing_probs=MISSING_PROBS, marker_modes=prior_markers,
                             donor_mismatch=0.5, noise=TRAIN_NOISE, zero_type_prob=0.1,
                             concentration=(2, 30), neutrophil_weight=(1, 6), synthetic="sparse",
                             markers=tuple(args.markers), tech_shift=True, **TECH_SHIFT_RANGES,
                             sharpen=SHARPEN, pool_min_range=POOL_MIN_RANGE,
                             pool_size={name: int(len(rows)) for name, rows in pools.items()},
                             pool_source="training donors",
-                            sources=[dict(panel=a, args=b, sharpen=c, prob=d) for a, b, c, d in SOURCES],
+                            sources=[dict(panel=a, args=b, sharpen=c, prob=d) for a, b, c, d in prior_sources],
                             cohort_sizes=COHORT_SIZES, tight_prob=0.5, tight_concentration=(20.0, 500.0),
                             sample_shift=simulator.SAMPLE_SHIFT),
         validation_prior=dict(tech_shift=True, noise=0.02, markers=args.val_markers,
                               marker_mode=VALIDATION_MARKER_MODE, cohort_size=VALIDATION_COHORT,
                               sources=[dict(panel=a, args=b, sharpen=c) for a, b, c in VALIDATION_SOURCES],
                               pool="training-donor screen", **TECH_SHIFT_RANGES),
+        selection=dict(rule=args.select_by, scorecard_omission_mode=SCORECARD_OMISSION_MODE if card_table else None, scorecard_source_weights=SCORECARD_SOURCE_WEIGHTS if card_table else None, scorecard_markers=sorted({int(n.rsplit("M", 1)[1]) for n, *_ in card_table}) if card_table else None,
+                       scorecard_weights={n: w for n, _, w in card_table} if card_table else None,
+                       scorecard_per_cell=args.scorecard_per_cell if card_table else None,
+                       omission_mode=args.omission_mode),
         best=best_result, evaluations=evals,
     )
     (args.out / "summary.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

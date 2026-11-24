@@ -15,13 +15,14 @@ sample-level rule would have removed is reported as `n_samples_literal_drop`.)
 
 Writes to results/null_whole_blood_gpu_v5/: estimates.csv (one row per sample) and
 summary.csv (one row per cohort, with a status column so failures are visible).
-Run from the deconv folder:  py -3.11 -B label_free_null.py
+Run from the deconv folder:  python label_free_null.py
 """
 
 from __future__ import annotations
 
 import gzip
 import json
+import os
 import sys
 import traceback
 from pathlib import Path
@@ -39,7 +40,7 @@ from rpc_torch import rpc_fit
 
 CKPT = Path("results/gpu_v5_seed0")
 OUT = Path("results/null_whole_blood_gpu_v5")
-DATA = Path(r"C:\Users\Saxen\data\comp-genomics")
+DATA = Path(os.environ.get("DECONV_NULL_DATA", Path(__file__).resolve().parent.parent / "data"))
 PER_SIDE = 25
 THRESH = 0.05  # 5 points
 

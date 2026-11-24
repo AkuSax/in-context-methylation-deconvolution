@@ -22,7 +22,7 @@ import pandas as pd
 
 import geo
 
-RAW = Path(os.environ.get("DECONV_RAW", r"C:\Users\Saxen\data\comp-genomics\deconv\raw"))
+RAW = Path(os.environ.get("DECONV_RAW", Path(__file__).resolve().parent.parent / "data" / "raw"))
 CACHE = RAW.parent / "cache"
 PREPROC = os.environ.get("DECONV_PREPROC", "geo")
 
@@ -261,10 +261,80 @@ def load_gse103541() -> Dataset:
     return Dataset("GSE103541", "EPIC", betas, lab.astype(object), truth, kind, df)
 
 
+def load_gse137594() -> Dataset:
+    """EPIC. 119 CD19+ B-cell arrays from 119 treatment-naive arthritis patients (one array each).
+
+    B cells only, no healthy controls: 46 rheumatoid arthritis, 73 other arthritis types
+    (`meta["group"]`; `meta["working_diagnosis"]` has the detail). Disease can shift
+    methylation within a type, so this is a source of B-cell donor variation for the
+    simulator, never a test set (EVALUATION.md, 2026-11-19). No mixtures, no truth.
+    Noob betas only. Labels come from `raw/GSE137594/labels.tsv` (fetch_labels.py); the
+    Noob join keeps 866,238 probes common to all chunks (see reprocess._noob_chunked).
+    """
+    if PREPROC != "noob":
+        raise ValueError("GSE137594 has Noob betas only; set DECONV_PREPROC=noob")
+    df = pd.read_csv(RAW / "GSE137594" / "labels.tsv", sep="\t").set_index("gsm")
+    if not (df["cell type"] == "CD19+ B cells").all():
+        raise ValueError("GSE137594: unexpected cell type")
+    df["donor"] = "GSE137594:" + df.index
+    df["group"] = np.where(df["working_diagnosis"].eq("Rheumatoid Arthritis"), "RA", "other_arthritis")
+    betas = _noob_betas("GSE137594", df)
+    lab = pd.Series("B", index=df.index, dtype=object)
+    truth = pd.DataFrame(np.nan, index=df.index, columns=["B"])
+    kind = pd.Series(None, index=df.index, dtype=object)
+    return Dataset("GSE137594", "EPIC", betas, lab, truth, kind, df)
+
+
+# GSE174666 title prefix -> (subtype label, parent). `Tn` is CD8+ CD45RA+ (checked against
+# `source_name`), not CD4 naive: CD4 naive is the `CD4nv` prefix.
+GSE174666_SUBTYPES = {
+    "Bmem": "Bmem", "Bn": "Bnv", "CD4nv": "CD4nv", "CD4CM": "CD4CM", "CD4EM": "CD4EM",
+    "Tn": "CD8nv_frozen", "CD8nv": "CD8nv", "CD8CM": "CD8CM", "CD8EM": "CD8EM", "EMRA": "CD8EMRA",
+}
+GSE174666_OVERLAP_DROP = RAW.parent / "overlap" / "GSE174666_drop_overlap_with_GSE167998.csv"
+
+
+def load_gse174666(drop_overlap: bool = True) -> Dataset:
+    """EPIC. Healthy sorted lymphocyte subsets, one array per row; 57 arrays, 36 after the drop.
+
+    21 arrays share a SNP-genotype profile with arrays of the reserved GSE167998
+    (`overlap/GSE174666_drop_overlap_with_GSE167998.csv`, idat_prefix = GSM_sentrix); they
+    are removed by default, which leaves Bmem 1, Bnv 1, CD4nv 1, CD8nv_frozen (`Tn`) 1,
+    CD4CM 6, CD4EM 6, CD8nv 6, CD8CM 5, CD8EM 4, CD8EMRA 5. `meta["subtype"]` is the subset,
+    `meta["donor_key"]` groups arrays that carry the same leukoreduction-filter number inside
+    the CD4 memory pair (CD4CM/CD4EM) or the CD8 family (CD8nv/CD8CM/CD8EM/CD8EMRA); the
+    other arrays are their own donor. Whether a filter number is one donor is an assumption.
+    Source: Salas lab, same lab as GSE167998. Simulator training source only (EVALUATION.md);
+    never a test set. Noob betas only. No mixtures, no truth.
+    """
+    if PREPROC != "noob":
+        raise ValueError("GSE174666 has Noob betas only; set DECONV_PREPROC=noob")
+    df = pd.read_csv(RAW / "GSE174666" / "labels.tsv", sep="	").set_index("gsm")
+    parts = df["title"].str.extract(r"^(Bmem|Bn|CD4nv|CD4CM|CD4EM|CD8CM|CD8EM|CD8nv|EMRA|Tn)[ -]?(\d+)\s*$")
+    if parts[0].isna().any():
+        raise ValueError("GSE174666: unrecognised title")
+    df["subtype"] = parts[0].map(GSE174666_SUBTYPES)
+    num = parts[1]
+    family = np.where(df["subtype"].isin(["CD4CM", "CD4EM"]), "CD4mem",
+                      np.where(df["subtype"].isin(["CD8nv", "CD8CM", "CD8EM", "CD8EMRA"]), "CD8", ""))
+    df["donor_key"] = np.where(family != "", "GSE174666:" + pd.Series(family, index=df.index) + "-" + num,
+                               "GSE174666:" + df.index)
+    if drop_overlap:
+        dropped = set(pd.read_csv(GSE174666_OVERLAP_DROP)["gsm"])
+        df = df[~df.index.isin(dropped)].copy()
+    betas = _noob_betas("GSE174666", df)
+    lab = df["subtype"].astype(object)
+    truth = pd.DataFrame(np.nan, index=df.index, columns=["x"])
+    kind = pd.Series(None, index=df.index, dtype=object)
+    return Dataset("GSE174666", "EPIC", betas, lab, truth, kind, df)
+
+
 # Sorted-cell series with no fraction truth: sources for the simulator, not benchmarks.
 # Kept out of LOADERS so the baseline and reprocessing defaults do not pick them up.
 SORTED_LOADERS = {
     "GSE103541": load_gse103541,
+    "GSE137594": load_gse137594,
+    "GSE174666": load_gse174666,
 }
 
 LOADERS = {
